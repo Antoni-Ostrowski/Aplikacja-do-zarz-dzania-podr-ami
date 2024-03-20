@@ -15,7 +15,7 @@ session_start();
     ?>
     <form action="rejestracja.php" method="POST">
         <input type="text" name="login" id="login" placeholder="login">
-        <input type="text" name="pass" id="pass" placeholder="password">
+        <input type="password" name="pass" id="pass" placeholder="password">
         <input type="submit" value="ADD USER">
     </form>
     <?php

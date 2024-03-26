@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 20 Mar 2024, 15:36
+-- Czas generowania: 26 Mar 2024, 15:16
 -- Wersja serwera: 10.4.27-MariaDB
 -- Wersja PHP: 8.2.0
 
@@ -24,16 +24,14 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `lista_podrozy`
+-- Struktura tabeli dla tabeli `ulubione_podroze`
 --
 
-CREATE TABLE `lista_podrozy` (
+CREATE TABLE `ulubione_podroze` (
+  `id_polubienia` int(11) NOT NULL,
   `id_podrozy` int(11) NOT NULL,
-  `data_podrozy` text NOT NULL,
-  `organizator` text NOT NULL,
-  `cena` int(11) NOT NULL,
-  `destynacja` text NOT NULL,
-  `opis` text NOT NULL
+  `user_login` text NOT NULL,
+  `data_polubienia` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -41,20 +39,20 @@ CREATE TABLE `lista_podrozy` (
 --
 
 --
--- Indeksy dla tabeli `lista_podrozy`
+-- Indeksy dla tabeli `ulubione_podroze`
 --
-ALTER TABLE `lista_podrozy`
-  ADD PRIMARY KEY (`id_podrozy`);
+ALTER TABLE `ulubione_podroze`
+  ADD PRIMARY KEY (`id_polubienia`);
 
 --
 -- AUTO_INCREMENT dla zrzuconych tabel
 --
 
 --
--- AUTO_INCREMENT dla tabeli `lista_podrozy`
+-- AUTO_INCREMENT dla tabeli `ulubione_podroze`
 --
-ALTER TABLE `lista_podrozy`
-  MODIFY `id_podrozy` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `ulubione_podroze`
+  MODIFY `id_polubienia` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

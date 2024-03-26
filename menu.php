@@ -1,10 +1,10 @@
 <?php
-    if (isset($_POST['user'])) {
+    if ($_SESSION['user'] !== "") {
         echo "logged user: ";
         echo $_SESSION['user'];
+        echo $_SESSION['upr'];
     }
-
-
+      
 
 ?>
 <ul>

@@ -101,7 +101,12 @@ $result = mysqli_query($conn, "SELECT * FROM users");
 
                         echo "<br/>";
 
-                        echo "<input type='text' id='edit_input_upr_".$row['login']."' name='upr' value='".$row['upr']."' style='display:none;'>";
+                        echo "<select id='edit_input_upr_".$row['login']."' name='upr' style='display:none;'>";
+                            echo "<option value='user' " . ($row['upr'] == 'user' ? 'selected' : '') . ">Użytkownik</option>";
+                            echo "<option value='admin' " . ($row['upr'] == 'admin' ? 'selected' : '') . ">Administrator</option>";
+                            echo "<option value='pracownik' " . ($row['upr'] == 'pracownik' ? 'selected' : '') . ">Pracownik</option>";
+                        echo "</select>";
+                        
 
                         echo "<br/>";
 

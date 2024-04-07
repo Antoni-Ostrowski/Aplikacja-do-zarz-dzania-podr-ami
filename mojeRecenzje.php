@@ -6,25 +6,21 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ulubione podróże</title>
+    <title>Moje recenzje</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://kit.fontawesome.com/f8537a5e86.js" crossorigin="anonymous"></script>
 
+
 </head>
 <body>
-    <h1>Ulubione podróże</h1>
+    <h1>Moje recenzje</h1>
     <?php
     include 'menu.php';
-    ?>
 
-    <?php 
     $conn=mysqli_connect("localhost","root","","podroze");
 
-    if(!$conn){
-        die (mysqli_connect_error() . "error");
-    }
-    ?>
-    <?php 
+   ?>
+   <?php 
      if(isset($_GET['usun-z-ulubionych'])) {
         $id_podrozy = $_GET['id_podrozy'];
         
@@ -83,7 +79,7 @@ session_start();
     <?php 
     $login = $_SESSION['user'];
 
-    $result = mysqli_query($conn, "SELECT * FROM lista_podrozy JOIN ulubione_podroze ON lista_podrozy.id_podrozy = ulubione_podroze.id_podrozy WHERE ulubione_podroze.user_login = '$login'");
+    $result = mysqli_query($conn, "SELECT * FROM lista_podrozy JOIN recenzje ON lista_podrozy.id_podrozy = recenzje.id_podrozy WHERE recenzje.user_login = '$login'");
 
     
     
@@ -95,15 +91,14 @@ session_start();
 
             echo '<div class="podroz">';
 
-                 
-                    echo "<div class='info-container'>";
-                        echo "<p><strong>Organizator:</strong> " . $row['organizator'] ."</p>";
-                        echo "<p><strong>Destynacja:</strong> " . $row['destynacja'] ."</p>";
-                        echo "<p><strong>Data podroży:</strong> " . $row['data_podrozy'] ."</p>";
-                        echo "<p><strong>Cena:</strong> " . $row['cena'] ."</p>";
-                        echo "<p class='opis'><strong>Opis:</strong> " . $row['opis'] ."</p>";
-                        
-                 echo '</div>';
+            echo "<div class='info-container'>";
+                echo "<p><strong>Organizator:</strong> " . $row['organizator'] ."</p>";
+                echo "<p><strong>Destynacja:</strong> " . $row['destynacja'] ."</p>";
+                echo "<p><strong>Data podroży:</strong> " . $row['data_podrozy'] ."</p>";
+                echo "<p><strong>Cena:</strong> " . $row['cena'] ."</p>";
+                echo "<p class='opis'><strong>Opis:</strong> " . $row['opis'] ."</p>";
+            
+             echo '</div>';
                 
                 // FORM OD DODAWANIA I USUWANIA PODROZY Z LISTY ULUBIONYCH
                 echo "<form method='GET' action=''>";
@@ -189,12 +184,13 @@ session_start();
                 }
 
              echo "</form>";
+
             echo "</div>";
         }
     } else {
         echo "<p>Nie znaleziono.</p>";
     }
     ?>
-    </div>
+ 
 </body>
 </html>

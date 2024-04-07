@@ -1,0 +1,228 @@
+* {
+  color: white;
+  font-family: system-ui;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: #121212;
+}
+.users {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  gap: 40px;
+}
+.user {
+  border: 1px solid white;
+  width: 300px;
+  height: 150px;
+  padding: 10px;
+}
+.user-btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+p {
+  margin: 0;
+}
+.podroz {
+  border: 1px solid white;
+  border-radius: 10px;
+  padding: 15px;
+  width: calc(33.33% - 20px); /* Set the width to occupy one-third of the container minus the gap */
+  margin-bottom: 20px; /* Add margin bottom to create space between items */
+}
+.options-btns {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 10px;
+}
+/* Adjust the buttons inside .options-btns */
+.options-btns button {
+  margin-left: 5px;
+}
+.opis {
+  word-wrap: break-word; /* Allow long words to break and wrap */
+}
+.podroze-container {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start; /* Distribute items along the main axis */
+  align-items: stretch; /* Stretch items to match the height of the container */
+  flex-wrap: wrap;
+  padding: 40px !important;
+}
+
+.dodaj-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin: auto;
+}
+
+.form-child {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dodaj-label {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.dodaj-input {
+  flex: 1;
+  width: 100%;
+}
+
+.rating {
+  display: inline-block;
+}
+
+.rating input[type='radio'] {
+  display: none;
+}
+
+.rating label {
+  font-size: 30px;
+  color: #ddd;
+  cursor: pointer;
+  float: right;
+}
+
+.rating input[type='radio']:checked ~ label {
+  color: #ffcc00;
+}
+
+.rating label:hover,
+.rating label:hover ~ label {
+  color: #ffcc00;
+}
+
+button,
+input[type='button'],
+input[type='submit'] {
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+}
+/* Dark theme for inputs */
+input[type='text'],
+input[type='password'],
+input[type='email'],
+input[type='number'],
+input[type='date'],
+textarea,
+select {
+  background-color: #121212; /* Dark background color */
+  color: #fff; /* Light text color */
+  border: 1px solid #333; /* Slightly darker border color */
+  border-radius: 5px; /* Rounded corners */
+  padding: 8px; /* Padding around the text */
+  margin: 5px 0; /* Margin to separate inputs */
+}
+
+/* Dark theme for buttons */
+input[type='submit'],
+input[type='button'],
+input[type='reset'],
+.edit-btn,
+.cancel-btn {
+  background-color: #121212; /* Dark background color */
+  color: #fff; /* Light text color */
+  border: 1px solid #333; /* Slightly darker border color */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px 20px; /* Padding around the text */
+  cursor: pointer; /* Cursor style */
+}
+
+/* Hover effect for buttons */
+input[type='submit']:hover,
+input[type='button']:hover,
+input[type='reset']:hover,
+.edit-btn:hover,
+.cancel-btn:hover {
+  background-color: #333; /* Slightly darker background color on hover */
+}
+
+i {
+  font-size: 30px;
+}
+.save-btns {
+  color: white;
+}
+.plane-btns {
+  color: white;
+}
+.good-btn {
+  color: lightgreen;
+}
+.bad-btn {
+  color: tomato;
+}
+.not-sure-btn {
+  color: yellow;
+}
+a {
+  color: white;
+}
+link:visited {
+  color: white;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-row label {
+  flex: 0 0 100px; /* Fixed width for labels */
+}
+
+.form-row input[type='text'],
+.form-row input[type='date'],
+.form-row input[type='number'],
+.form-row textarea {
+  flex: 1; /* Take remaining space */
+  -left: 10px; /* Margin between label and input */
+}
+
+.info-container {
+  padding: 10px;
+}
+
+.info-container p {
+  margin: 5px 0;
+}
+.icons {
+  gap: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.ratings-div {
+  display: flex;
+  gap: 20px;
+}

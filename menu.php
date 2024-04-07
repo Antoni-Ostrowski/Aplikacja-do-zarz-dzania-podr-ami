@@ -7,13 +7,30 @@
       
 
 ?>
+<link rel="stylesheet" href="styles.css">
 <ul>
 <li> <a href='/podroze'>Podroże</a> </li>
-<li> <a href='./ulubione.php'>Ulubione</a> </li>
 
 <?php
 if(isset($_SESSION['upr']) &&  $_SESSION['upr']=='admin'){
     echo "<li> <a href='./admin.php'>Panel administratora</a> </li>";
+}
+
+if(isset($_SESSION['upr']) &&  ($_SESSION['upr']=='pracownik' || $_SESSION['upr']=='admin')){
+    echo "<li> <a href='./dodawanie.php'>Dodaj podróż</a> </li>";
+}
+
+
+if(isset($_SESSION['upr']) &&  $_SESSION['upr']=='user' ){
+    echo "<li> <a href='./mojeRecenzje.php'>Moje recenzje</a> </li>";
+}
+
+if(isset($_SESSION['upr']) &&  $_SESSION['upr']=='user' ){
+    echo "<li> <a href='./ulubione.php'>Ulubione podróże</a> </li>";
+}
+
+if(isset($_SESSION['upr']) &&  $_SESSION['upr']=='user' ){
+    echo "<li> <a href='./zaplanowane.php'>Zaplanowane podróże</a> </li>";
 }
 ?>
 

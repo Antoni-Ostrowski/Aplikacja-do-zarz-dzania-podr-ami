@@ -7,7 +7,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moje recenzje</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styless.css">
     <script src="https://kit.fontawesome.com/f8537a5e86.js" crossorigin="anonymous"></script>
 
 

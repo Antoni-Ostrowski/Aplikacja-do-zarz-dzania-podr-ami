@@ -7,9 +7,8 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Podroże</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./styless.css">
     <script src="https://kit.fontawesome.com/f8537a5e86.js" crossorigin="anonymous"></script>    
-    
 </head>
 <body>
     <h1>Podroże</h1>
@@ -99,22 +98,32 @@ session_start();
         $user_login = $_SESSION['user'];
         $data_recenzji = date('d/m/Y');
         $ocena = $_GET['ocena'];
+            // echo $id_podrozy;
+            // echo $ocena;
 
         $check_query = "SELECT * FROM recenzje WHERE id_podrozy = '$id_podrozy' AND user_login = '$user_login'";
         $check_result = mysqli_query($conn, $check_query);
 
         if (mysqli_num_rows($check_result) > 0) {
             $update_query = "UPDATE recenzje SET ocena = '$ocena', data_recenzji = '$data_recenzji' WHERE id_podrozy = '$id_podrozy' AND user_login = '$user_login'";
-            // if (mysqli_query($conn, $update_query)) {
-            // } else {
-            // }
+            if (mysqli_query($conn, $update_query)) {
+          
+            // echo "nice";
+            echo "<script>alert('Przesłano opinie.');</script>";
+            } else {
+            echo "<script>alert('Wystąpił błąd podczas przesyłania odpowiedzi.');</script>";
+                // echo "error";
+            }
         } else {
             // If the row doesn't exist, do nothing or handle it as needed
             $result = mysqli_query($conn, "INSERT INTO recenzje VALUES (NULL, $id_podrozy, '$user_login','$ocena', $data_recenzji)");
 
-            // if (mysqli_query($conn, $updaresultte_query)) {
-            // } else {
-            // }
+            if (mysqli_query($conn, $result)) {
+            echo "<script>alert('Przesłano opinie.');</script>";
+            } else {
+            echo "<script>alert('Wystąpił błąd podczas przesyłania odpowiedzi.');</script>";
+
+            }
         }
      }
 
@@ -165,11 +174,12 @@ session_start();
                         echo "</div>";
                     }
 
-                echo "</form>";       
-
-                ?>
+                echo "</form>";     
                 
-                <?php
+
+
+                
+                    
                 
                 if(isset($_SESSION['upr']) &&  $_SESSION['upr'] === 'user' ) {
                     
@@ -227,7 +237,11 @@ session_start();
                     echo "<input type='hidden' name='id_podrozy' value='$id_podrozy'>";
 
                     $zaplanowaneResult = mysqli_query($conn, "SELECT * FROM recenzje WHERE id_podrozy = $id_podrozy AND user_login = '$login'");
-                
+                        
+                    if (!$zaplanowaneResult) {
+                        echo "error";
+                    }
+                      
                     if (mysqli_num_rows($zaplanowaneResult) > 0) {
                         while ($row = mysqli_fetch_assoc($zaplanowaneResult)) {
                             $ocena = $row['ocena'];
@@ -256,7 +270,7 @@ session_start();
                         
                         }
                     } else {
-                        echo "<div>";
+                        echo "<div class='ratings-div'>";
 
                             // Default buttons if no records found
                             echo "<button type='submit' class='good-btn' name='ocena' value='good'>";

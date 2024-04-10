@@ -39,18 +39,17 @@ $result = mysqli_query($conn, "SELECT * FROM users");
     <link rel="stylesheet" href="styless.css">
 </head>
 <body>
-    <h1>Panel administratora</h1>
     <?php include 'menu.php' ?>
     <div class="users">
         <?php
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
                 echo "<div class='user'>";
-                echo "<p>" . $row['login'] . "," . $row['upr'] . "</p>";
+               
 
                 if ($editing) {
                     // Edit mode
-                    echo "<form method='post' action=''>";
+                    echo "<form method='post' action='' class='form-container'>";
                         echo "<input type='hidden' name='login' value='" . $row['login'] . "'>";
                         echo "<input type='text' name='newLogin' value='" . $row['login'] . "'>";
                         echo "<select name='upr'>";
@@ -62,13 +61,18 @@ $result = mysqli_query($conn, "SELECT * FROM users");
                     echo "</form>";
                 } else {
                     // View mode
-                    echo "<form method='post' action=''>";
-                    echo "<div class='user-btns'>";
-                    echo "<input type='submit' name='edit' value='Edit'>";
-                    echo "<input type='submit' name='delete_user' value='Delete'>";
+                    echo "<div class='info-container'>";
+                        echo "<form method='post' action=''>";
+                        echo "<p><strong>Login:</strong> " . $row['login'] ."</p>";
+                        echo "<p><strong>Uprawnienia:</strong> " . $row['upr'] ."</p>";
+                            echo "<div class='user-btns'>";
+                            echo "<input type='submit' name='edit' value='Edit'>";
+                            echo "<input type='submit' name='delete_user' value='Delete'>";
+                            echo "</div>";
+                        echo "</form>";
                     echo "</div>";
-                    echo "</form>";
                 }
+                
 
                 echo "</div>";
             }

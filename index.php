@@ -11,7 +11,6 @@ session_start();
     <script src="https://kit.fontawesome.com/f8537a5e86.js" crossorigin="anonymous"></script>    
 </head>
 <body>
-    <h1>Podroże</h1>
     <?php
     include 'menu.php';
 
@@ -106,24 +105,11 @@ session_start();
 
         if (mysqli_num_rows($check_result) > 0) {
             $update_query = "UPDATE recenzje SET ocena = '$ocena', data_recenzji = '$data_recenzji' WHERE id_podrozy = '$id_podrozy' AND user_login = '$user_login'";
-            if (mysqli_query($conn, $update_query)) {
-          
-            // echo "nice";
-            echo "<script>alert('Przesłano opinie.');</script>";
-            } else {
-            echo "<script>alert('Wystąpił błąd podczas przesyłania odpowiedzi.');</script>";
-                // echo "error";
-            }
+           
         } else {
             // If the row doesn't exist, do nothing or handle it as needed
             $result = mysqli_query($conn, "INSERT INTO recenzje VALUES (NULL, $id_podrozy, '$user_login','$ocena', $data_recenzji)");
 
-            if (mysqli_query($conn, $result)) {
-            echo "<script>alert('Przesłano opinie.');</script>";
-            } else {
-            echo "<script>alert('Wystąpił błąd podczas przesyłania odpowiedzi.');</script>";
-
-            }
         }
      }
 
@@ -136,7 +122,73 @@ session_start();
 
     if(mysqli_num_rows($result) > 0) {
         while($row = mysqli_fetch_assoc($result)) {
+
+
+            if (!$_SESSION['user']) {
             echo '<div class="podroz">';
+                
+                echo "<div class='info-container'>";
+                        echo "<p><strong>Organizator:</strong> " . $row['organizator'] ."</p>";
+                        echo "<p><strong>Destynacja:</strong> " . $row['destynacja'] ."</p>";
+                        echo "<p><strong>Data podroży:</strong> " . $row['data_podrozy'] ."</p>";
+                        echo "<p><strong>Cena:</strong> " . $row['cena'] ."</p>";
+                        echo "<p class='opis'><strong>Opis:</strong> " . $row['opis'] ."</p>";
+                        
+                        if($_SESSION['upr'] === 'admin' || $_SESSION['upr'] === 'pracownik') {
+                            echo '<div class="options-btns">';
+                            echo "<input type='submit' name='edit' value='Edit'>";
+                            echo "<input type='submit' name='delete' value='Delete'>";
+                            echo '</div>';
+                        }
+                        echo "</div>";
+
+                        echo "</div>";
+
+            } else if ($_SESSION['user'] === "admin") {
+              
+                echo '<div class="podroz">';
+                echo "<form action='index.php' method='POST'>";
+                    echo "<input type='hidden' name='id_podrozy' value='".$row['id_podrozy']."'>";
+                    // echo "<p>ID: " . $row['id_podrozy'] ."</p>";
+                    
+                    if ($editing) {
+                        // Show inputs for editing
+                        echo '<div class="form-container">';
+                        echo "<p class='form-row'><label for='organizator'>Organizator:</label> <input type='text' name='organizator' value='".$row['organizator']."'></p>";
+                        echo "<p class='form-row'><label for='destynacja'>Destynacja:</label> <input type='text' name='destynacja' value='".$row['destynacja']."'></p>";
+                        echo "<p class='form-row'><label for='data_podrozy'>Data podroży:</label> <input type='date' name='data_podrozy' value='".$row['data_podrozy']."'></p>";
+                        echo "<p class='form-row'><label for='cena'>Cena:</label> <input type='number' name='cena' value='".$row['cena']."'></p>";
+                        echo "<p class='form-row'><label for='opis'>Opis:</label> <textarea name='opis'>".$row['opis']."</textarea></p>";
+
+                            echo '<div class="options-btns">';
+                                echo "<input type='submit' name='update' value='Save'>";
+                                echo "<input type='submit' name='cancel' value='Cancel'>";
+                            echo '</div>';
+                        echo '</div>';
+
+                    } else {
+                        // Show text if not editing
+                        echo "<div class='info-container'>";
+                        echo "<p><strong>Organizator:</strong> " . $row['organizator'] ."</p>";
+                        echo "<p><strong>Destynacja:</strong> " . $row['destynacja'] ."</p>";
+                        echo "<p><strong>Data podroży:</strong> " . $row['data_podrozy'] ."</p>";
+                        echo "<p><strong>Cena:</strong> " . $row['cena'] ."</p>";
+                        echo "<p class='opis'><strong>Opis:</strong> " . $row['opis'] ."</p>";
+                        
+                        if($_SESSION['upr'] === 'admin' || $_SESSION['upr'] === 'pracownik') {
+                            echo '<div class="options-btns">';
+                            echo "<input type='submit' name='edit' value='Edit'>";
+                            echo "<input type='submit' name='delete' value='Delete'>";
+                            echo '</div>';
+                        }
+                        echo "</div>";
+                    }
+
+                echo "</form>";     
+                echo "</div>";
+
+            } else {
+                echo '<div class="podroz">';
                 echo "<form action='index.php' method='POST'>";
                     echo "<input type='hidden' name='id_podrozy' value='".$row['id_podrozy']."'>";
                     // echo "<p>ID: " . $row['id_podrozy'] ."</p>";
@@ -196,13 +248,13 @@ session_start();
                         $ulubioneResult = mysqli_query($conn, "SELECT * FROM ulubione_podroze WHERE id_podrozy = $id_podrozy AND user_login = '$login'");
                         if(mysqli_num_rows($ulubioneResult) > 0) {
 
-                            echo "<input type='hidden' name='usun-z-ulubionych' value='usun z ulubionych'/>";
-                            echo "<button type='submit' name='usun-z-zaplanowanych' class='save-btns'><i class='fas fa-bookmark'></i></button>";
+                            echo "<input type='hidden' name='usun-z-ulubionych' value='usun z ulubionych' />";
+                            echo "<button type='submit' name='usun-z-zaplanowanych' class='save-btns' title='Usuń podroż z ulubionych podróży.'><i class='fas fa-bookmark'></i></button>";
 
 
                         }   else {
                             echo "<input type='hidden' name='dodaj-do-ulubionych' value='dodaj do ulubionych'/>";
-                            echo "<button type='submit' name='dodaj-do-ulubionych' class='save-btns' ><i class='fa-regular fa-bookmark'></i></button>";
+                            echo "<button type='submit' name='dodaj-do-ulubionych' class='save-btns' title='Dodaj podroż do ulubionych podróży.'><i class='fa-regular fa-bookmark'></i></button>";
 
                             
                         }
@@ -217,13 +269,13 @@ session_start();
 
                         if (mysqli_num_rows($zaplanowaneResult) > 0) {
                             // Zaplanowany
-                            echo "<button type='submit' class='plane-btns' name='usun-z-zaplanowanych'>";
+                            echo "<button type='submit' class='plane-btns' name='usun-z-zaplanowanych' title='Usuń podroż z zaplanowanych podróży.'>";
                             echo "<i class='" . ($zaplanowaneResult ? 'fa-solid' : 'fa-regular') . " fa-plane-slash'></i>";
                             echo "</button>";
                         } else {
                             // Niezaplanowany
                             
-                            echo "<button type='submit' class='plane-btns' name='dodaj-do-zaplanowanych'>";
+                            echo "<button type='submit' class='plane-btns' name='dodaj-do-zaplanowanych' title='Dodaj podroż do zaplanowanych podróży.'>";
                             echo "<i class='" . ($zaplanowaneResult ? 'fa-solid' : 'fa-regular') . " fa-plane'></i>";
                             echo "</button>";
                         }
@@ -250,17 +302,17 @@ session_start();
                             echo "<div class='ratings-div'>";
 
                                 // Good
-                                echo "<button type='submit' class='good-btn' name='ocena' value='good'>";
+                                echo "<button type='submit' class='good-btn' name='ocena' value='good' title='Oceń podróż: pozytywnie'>";
                                 echo "<i class='" . ($ocena == 'good' ? 'fa-solid' : 'fa-regular') . " fa-thumbs-up'></i>";
                                 echo "</button>";
                         
                                 // Bad
-                                echo "<button type='submit' class='bad-btn' name='ocena' value='bad'>";
+                                echo "<button type='submit' class='bad-btn' name='ocena' value='bad' title='Oceń podróż: negatywnie'>";
                                 echo "<i class='" . ($ocena == 'bad' ? 'fa-solid' : 'fa-regular') . " fa-thumbs-down'></i>";
                                 echo "</button>";
                         
                                 // Not Sure (Combo)
-                                echo "<button type='submit' class='not-sure-btn' name='ocena' value='not_sure'>";
+                                echo "<button type='submit' class='not-sure-btn' name='ocena' value='not_sure' title='Ocen podróż: niezdecydowany'>";
                                 echo "<i class='" . ($ocena == 'not_sure' ? 'fa-solid' : 'fa-regular') . " fa-thumbs-up'></i>";
                                 echo "<i class='" . ($ocena == 'not_sure' ? 'fa-solid' : 'fa-regular') . " fa-thumbs-down'></i>";
                                 echo "</button>";
@@ -273,13 +325,15 @@ session_start();
                         echo "<div class='ratings-div'>";
 
                             // Default buttons if no records found
-                            echo "<button type='submit' class='good-btn' name='ocena' value='good'>";
+                            echo "<button type='submit' class='good-btn' name='ocena' value='good' title='Oceń podróż: pozytywnie'>";
                             echo "<i class='fa-regular fa-thumbs-up'></i>";
                             echo "</button>";
-                            echo "<button type='submit' class='bad-btn' name='ocena' value='bad'>";
+
+                            echo "<button type='submit' class='bad-btn' name='ocena' value='bad' title='Oceń podróż: negatywnie'>";
                             echo "<i class='fa-regular fa-thumbs-down'></i>";
                             echo "</button>";
-                            echo "<button type='submit' class='not-sure-btn' name='ocena' value='not_sure'>";
+
+                            echo "<button type='submit' class='not-sure-btn' name='ocena' value='not_sure' title='Ocen podróż: niezdecydowany'>";
                             echo "<i class='fa-regular fa-thumbs-up'></i>";
                             echo "<i class='fa-regular fa-thumbs-down'></i>";
                             echo "</button>";
@@ -288,6 +342,7 @@ session_start();
                     }
 
                 echo "</form>";
+
                 }
 
                
@@ -298,6 +353,14 @@ session_start();
            
            
                 echo "</div>";
+
+            }
+
+
+
+
+
+            
 
             }
     }

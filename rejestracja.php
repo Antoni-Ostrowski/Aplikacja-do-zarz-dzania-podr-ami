@@ -6,18 +6,17 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REGISTER</title>
+    <title>Rejestracja</title>
     <link rel="stylesheet" href="styless.css">
 </head>
 <body>
-<h1>REGISTER</h1>
     <?php
     include 'menu.php'
     ?>
-    <form action="rejestracja.php" method="POST">
+    <form action="rejestracja.php" method="POST" class="login-form">
         <input type="text" name="login" id="login" placeholder="login">
-        <input type="password" name="pass" id="pass" placeholder="password">
-        <input type="submit" value="ADD USER">
+        <input type="password" name="pass" id="pass" placeholder="hasło">
+        <input type="submit" value="Zajerestruj się">
     </form>
     <?php
     if(isset($_POST["login"]) && isset($_POST["pass"])){

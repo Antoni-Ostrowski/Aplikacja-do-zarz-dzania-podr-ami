@@ -11,7 +11,6 @@ session_start();
     <script src="https://kit.fontawesome.com/f8537a5e86.js" crossorigin="anonymous"></script>    
 </head>
 <body>
-    <h1>Zaplanowane podróże</h1>
     <?php
     include 'menu.php';
 
@@ -102,6 +101,9 @@ session_start();
                 echo "<p class='opis'><strong>Opis:</strong> " . $row['opis'] ."</p>";
                 
      echo '</div>';
+
+     echo "<div class='icons'>";
+
                 
                // FORM OD DODAWANIA I USUWANIA PODROZY Z LISTY ULUBIONYCH
                echo "<form method='GET' action=''>";
@@ -110,16 +112,16 @@ session_start();
                $ulubioneResult = mysqli_query($conn, "SELECT * FROM ulubione_podroze WHERE id_podrozy = $id_podrozy AND user_login = '$login'");
                if(mysqli_num_rows($ulubioneResult) > 0) {
 
-                   echo "<input type='hidden' name='usun-z-ulubionych' value='usun z ulubionych'/>";
-                   echo "<button type='submit' name='usun-z-zaplanowanych' class='save-btns'><i class='fas fa-bookmark'></i></button>";
+                echo "<input type='hidden' name='usun-z-ulubionych' value='usun z ulubionych' />";
+                echo "<button type='submit' name='usun-z-zaplanowanych' class='save-btns' title='Usuń podroż z ulubionych podróży.'><i class='fas fa-bookmark'></i></button>";
 
 
-               }   else {
-                   echo "<input type='hidden' name='dodaj-do-ulubionych' value='dodaj do ulubionych'/>";
-                   echo "<button type='submit' name='dodaj-do-ulubionych' class='save-btns' ><i class='fa-regular fa-bookmark'></i></button>";
+            }   else {
+                echo "<input type='hidden' name='dodaj-do-ulubionych' value='dodaj do ulubionych'/>";
+                echo "<button type='submit' name='dodaj-do-ulubionych' class='save-btns' title='Dodaj podroż do ulubionych podróży.'><i class='fa-regular fa-bookmark'></i></button>";
 
-                   
-               }
+                
+            }
 
            echo "</form>";
 
@@ -130,17 +132,17 @@ session_start();
                $zaplanowaneResult = mysqli_query($conn, "SELECT * FROM zaplanowane_podroze WHERE id_podrozy = $id_podrozy AND user_login = '$login'");
 
                if (mysqli_num_rows($zaplanowaneResult) > 0) {
-                   // Zaplanowany
-                   echo "<button type='submit' class='plane-btns' name='usun-z-zaplanowanych'>";
-                   echo "<i class='" . ($zaplanowaneResult ? 'fa-solid' : 'fa-regular') . " fa-plane-slash'></i>";
-                   echo "</button>";
-               } else {
-                   // Niezaplanowany
-                   
-                   echo "<button type='submit' class='plane-btns' name='dodaj-do-zaplanowanych'>";
-                   echo "<i class='" . ($zaplanowaneResult ? 'fa-solid' : 'fa-regular') . " fa-plane'></i>";
-                   echo "</button>";
-               }
+                // Zaplanowany
+                echo "<button type='submit' class='plane-btns' name='usun-z-zaplanowanych' title='Usuń podroż z zaplanowanych podróży.'>";
+                echo "<i class='" . ($zaplanowaneResult ? 'fa-solid' : 'fa-regular') . " fa-plane-slash'></i>";
+                echo "</button>";
+            } else {
+                // Niezaplanowany
+                
+                echo "<button type='submit' class='plane-btns' name='dodaj-do-zaplanowanych' title='Dodaj podroż do zaplanowanych podróży.'>";
+                echo "<i class='" . ($zaplanowaneResult ? 'fa-solid' : 'fa-regular') . " fa-plane'></i>";
+                echo "</button>";
+            }
 
                echo "</form>";
 
@@ -153,40 +155,56 @@ session_start();
             $zaplanowaneResult = mysqli_query($conn, "SELECT * FROM recenzje WHERE id_podrozy = $id_podrozy AND user_login = '$login'");
         
             if (mysqli_num_rows($zaplanowaneResult) > 0) {
-               while ($row = mysqli_fetch_assoc($zaplanowaneResult)) {
-                   $ocena = $row['ocena'];
-                   
-                   // Good
-                   echo "<button type='submit' class='good-btn' name='ocena' value='good'>";
-                   echo "<i class='" . ($ocena == 'good' ? 'fa-solid' : 'fa-regular') . " fa-thumbs-up'></i>";
-                   echo "</button>";
-           
-                   // Bad
-                   echo "<button type='submit' class='bad-btn' name='ocena' value='bad'>";
-                   echo "<i class='" . ($ocena == 'bad' ? 'fa-solid' : 'fa-regular') . " fa-thumbs-down'></i>";
-                   echo "</button>";
-           
-                   // Not Sure (Combo)
-                   echo "<button type='submit' class='not-sure-btn' name='ocena' value='not_sure'>";
-                   echo "<i class='" . ($ocena == 'not_sure' ? 'fa-solid' : 'fa-regular') . " fa-thumbs-up'></i>";
-                   echo "<i class='" . ($ocena == 'not_sure' ? 'fa-solid' : 'fa-regular') . " fa-thumbs-down'></i>";
-                   echo "</button>";
-               }
-           } else {
-               // Default buttons if no records found
-               echo "<button type='submit' class='good-btn' name='ocena' value='good'>";
-               echo "<i class='fa-regular fa-thumbs-up'></i>";
-               echo "</button>";
-               echo "<button type='submit' class='bad-btn' name='ocena' value='bad'>";
-               echo "<i class='fa-regular fa-thumbs-down'></i>";
-               echo "</button>";
-               echo "<button type='submit' class='not-sure-btn' name='ocena' value='not_sure'>";
-               echo "<i class='fa-regular fa-thumbs-up'></i>";
-               echo "<i class='fa-regular fa-thumbs-down'></i>";
-               echo "</button>";
-           }
+                while ($row = mysqli_fetch_assoc($zaplanowaneResult)) {
+                    $ocena = $row['ocena'];
+                    
+
+                    echo "<div class='ratings-div'>";
+
+                        // Good
+                        echo "<button type='submit' class='good-btn' name='ocena' value='good' title='Oceń podróż: pozytywnie'>";
+                        echo "<i class='" . ($ocena == 'good' ? 'fa-solid' : 'fa-regular') . " fa-thumbs-up'></i>";
+                        echo "</button>";
+                
+                        // Bad
+                        echo "<button type='submit' class='bad-btn' name='ocena' value='bad' title='Oceń podróż: negatywnie'>";
+                        echo "<i class='" . ($ocena == 'bad' ? 'fa-solid' : 'fa-regular') . " fa-thumbs-down'></i>";
+                        echo "</button>";
+                
+                        // Not Sure (Combo)
+                        echo "<button type='submit' class='not-sure-btn' name='ocena' value='not_sure' title='Ocen podróż: niezdecydowany'>";
+                        echo "<i class='" . ($ocena == 'not_sure' ? 'fa-solid' : 'fa-regular') . " fa-thumbs-up'></i>";
+                        echo "<i class='" . ($ocena == 'not_sure' ? 'fa-solid' : 'fa-regular') . " fa-thumbs-down'></i>";
+                        echo "</button>";
+                    
+                    echo "</div>";
+                
+                
+                }
+            } else {
+                echo "<div class='ratings-div'>";
+
+                    // Default buttons if no records found
+                    echo "<button type='submit' class='good-btn' name='ocena' value='good' title='Oceń podróż: pozytywnie'>";
+                    echo "<i class='fa-regular fa-thumbs-up'></i>";
+                    echo "</button>";
+
+                    echo "<button type='submit' class='bad-btn' name='ocena' value='bad' title='Oceń podróż: negatywnie'>";
+                    echo "<i class='fa-regular fa-thumbs-down'></i>";
+                    echo "</button>";
+
+                    echo "<button type='submit' class='not-sure-btn' name='ocena' value='not_sure' title='Ocen podróż: niezdecydowany'>";
+                    echo "<i class='fa-regular fa-thumbs-up'></i>";
+                    echo "<i class='fa-regular fa-thumbs-down'></i>";
+                    echo "</button>";
+                echo "</div>";
+            
+            }
 
         echo "</form>";
+
+        echo "</div>";
+
             echo "</div>";
         }
     } else {

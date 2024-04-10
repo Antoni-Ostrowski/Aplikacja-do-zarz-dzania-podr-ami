@@ -6,18 +6,17 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOGIN</title>
+    <title>Logowanie</title>
     <link rel="stylesheet" href="styless.css">
 </head>
 <body>
-    <h1>LOGIN</h1>
     <?php
     include 'menu.php'
     ?>
-    <form action="login.php" method="POST">
+    <form action="login.php" method="POST"  class="login-form">
         <input type="text" name="login" id="login" placeholder="login">
-        <input type="password" name="pass" id="pass" placeholder="password">
-        <input type="submit" value="LOGIN">
+        <input type="password" name="pass" id="pass" placeholder="hasło">
+        <input type="submit" value="Zaloguj się">
     </form>
     <?php
     if(isset($_POST["login"]) && isset($_POST["pass"])){
@@ -52,7 +51,8 @@ session_start();
             $_SESSION['user'] = "";
             
             $_SESSION['upr'] = "";
-            echo "error";
+
+            echo "<script>alert('Wprowadź dane.');</script>";
     }
 }
     

@@ -11,7 +11,6 @@ session_start();
     
 </head>
 <body>
-    <h1>Dodaj podróż</h1>
     <?php
     include 'menu.php';
 

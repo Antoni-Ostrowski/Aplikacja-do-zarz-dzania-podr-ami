@@ -131,7 +131,7 @@ session_start();
                         echo "<p><strong>Organizator:</strong> " . $row['organizator'] ."</p>";
                         echo "<p><strong>Destynacja:</strong> " . $row['destynacja'] ."</p>";
                         echo "<p><strong>Data podroży:</strong> " . $row['data_podrozy'] ."</p>";
-                        echo "<p><strong>Cena:</strong> " . $row['cena'] ."</p>";
+                        echo "<p><strong>Cena:</strong> " . $row['cena'] ." zł</p>";
                         echo "<p class='opis'><strong>Opis:</strong> " . $row['opis'] ."</p>";
                         
                         if($_SESSION['upr'] === 'admin' || $_SESSION['upr'] === 'pracownik') {
@@ -172,7 +172,7 @@ session_start();
                         echo "<p><strong>Organizator:</strong> " . $row['organizator'] ."</p>";
                         echo "<p><strong>Destynacja:</strong> " . $row['destynacja'] ."</p>";
                         echo "<p><strong>Data podroży:</strong> " . $row['data_podrozy'] ."</p>";
-                        echo "<p><strong>Cena:</strong> " . $row['cena'] ."</p>";
+                        echo "<p><strong>Cena:</strong> " . $row['cena'] ." zł</p>";
                         echo "<p class='opis'><strong>Opis:</strong> " . $row['opis'] ."</p>";
                         
                         if($_SESSION['upr'] === 'admin' || $_SESSION['upr'] === 'pracownik') {

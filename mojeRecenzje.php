@@ -59,16 +59,12 @@ session_start();
 
         if (mysqli_num_rows($check_result) > 0) {
             $update_query = "UPDATE recenzje SET ocena = '$ocena', data_recenzji = '$data_recenzji' WHERE id_podrozy = '$id_podrozy' AND user_login = '$user_login'";
-            if (mysqli_query($conn, $update_query)) {
-            } else {
-            }
+            
         } else {
             // If the row doesn't exist, do nothing or handle it as needed
             $result = mysqli_query($conn, "INSERT INTO recenzje VALUES (NULL, $id_podrozy, '$user_login','$ocena', $data_recenzji)");
 
-            if (mysqli_query($conn, $updaresultte_query)) {
-            } else {
-            }
+            
         }
      }
 

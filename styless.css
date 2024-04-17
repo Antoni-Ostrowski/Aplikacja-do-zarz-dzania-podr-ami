@@ -65,6 +65,8 @@ p {
   align-items: stretch; /* Stretch items to match the height of the container */
   flex-wrap: wrap;
   padding: 40px !important;
+  overflow-y: auto;
+
 }
 
 .dodaj-form {
